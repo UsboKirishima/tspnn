@@ -2,7 +2,7 @@
 
 # Traveling Salesman Problem
 
-![screen.png](/home/usbo/coding/tspnn/assets/screen.png)
+![screen.png](/assets/screen.png)
 
 Simple desktop app to resolve "Traveling Salesman Problem" using the Nearest Neighbor algorithm.
 
