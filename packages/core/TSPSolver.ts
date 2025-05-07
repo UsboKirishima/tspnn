@@ -1,6 +1,6 @@
 import Graph from "./Graph";
-import { Edge } from "./structures/Edge";
-import { Node } from "./structures/Node";
+import Edge from "./structures/Edge";
+import Node from "./structures/Node";
 
 interface NodeWrap {
     node: Node;
@@ -16,6 +16,10 @@ export default class TSPSolver {
     }
 
     public nearestNeighbour(start: Node = this.graph.nodes[0]): Node[] {
+        
+        if(this.graph.nodes.length === 0)
+            return [];
+        
         const nodeWraps: NodeWrap[] = this.graph.nodes.map(n => ({
             node: n,
             visited: false

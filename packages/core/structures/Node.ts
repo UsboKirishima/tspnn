@@ -1,4 +1,4 @@
-export class Node {
+export default class Node {
     private _id: string;
     private _x: number;
     private _y: number;

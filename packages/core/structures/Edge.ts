@@ -1,6 +1,6 @@
-import { Node } from "./Node";
+import Node from "./Node";
 
-export class Edge {
+export default class Edge {
     private _from: Node;
     private _to: Node;
 

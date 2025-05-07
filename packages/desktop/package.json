@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
-  "productName": "my-app",
+  "name": "desktop",
+  "productName": "@tspnn/desktop",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Electron desktop app for tspnn",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

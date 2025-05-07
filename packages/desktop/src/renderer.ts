@@ -1,35 +1,7 @@
-/**
- * This file will automatically be loaded by webpack and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/latest/tutorial/process-model
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.js` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
-
 import Graph from 'core/Graph';
 import './index.css';
 import TSPSolver from 'core/TSPSolver';
-import { Node } from 'core/structures/Node';
+import Node from 'core/structures/Node';
 
 
 interface Point {
@@ -49,7 +21,6 @@ const global = {
     graph: new Graph()
 }
 
-// Funzione principale per disegnare il canvas
 function drawCanvas(): void {
     const canvas: HTMLCanvasElement | null = document.getElementById('pointCanvas') as HTMLCanvasElement;
     if (!canvas) return;
@@ -137,9 +108,8 @@ function drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: number,
     ctx.fill();
 }
 
-// Disegna i punti collegati
 function drawConnectedShape(ctx: CanvasRenderingContext2D, nodes: Node[], options: CanvasOptions): void {
-    
+
     if (nodes.length >= 2) {
         ctx.strokeStyle = options.lineColor;
         ctx.fillStyle = options.lineColor;
@@ -175,12 +145,10 @@ function drawConnectedShape(ctx: CanvasRenderingContext2D, nodes: Node[], option
     }
 }
 
-// Disegna i punti e i loro ID
 function drawPointsWithIds(ctx: CanvasRenderingContext2D, points: Point[], options: CanvasOptions): void {
     for (let i = 0; i < points.length; i++) {
         const point = points[i];
 
-        // Disegna il punto
         ctx.beginPath();
         ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
         ctx.fillStyle = options.pointColor;
@@ -189,7 +157,6 @@ function drawPointsWithIds(ctx: CanvasRenderingContext2D, points: Point[], optio
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Disegna l'ID del punto
         ctx.font = '12px Arial';
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
@@ -197,7 +164,6 @@ function drawPointsWithIds(ctx: CanvasRenderingContext2D, points: Point[], optio
     }
 }
 
-// Imposta gli event listener
 document.addEventListener('DOMContentLoaded', () => {
     const drawButton = document.getElementById('drawButton');
 
@@ -205,6 +171,5 @@ document.addEventListener('DOMContentLoaded', () => {
         drawButton.addEventListener('click', drawCanvas);
     }
 
-    // Disegna il canvas con i valori predefiniti all'avvio
     drawCanvas();
 });

@@ -1,5 +1,5 @@
-import { Edge } from "./structures/Edge";
-import { Node } from "./structures/Node";
+import Edge from "./structures/Edge";
+import Node from "./structures/Node";
 
 export default class Graph {
     private _nodes: Node[] = [];

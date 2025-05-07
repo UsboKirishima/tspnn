@@ -1,5 +1,5 @@
-import { Edge } from "./structures/Edge";
-import { Node } from "./structures/Node";
+import Edge from "./structures/Edge";
+import Node from "./structures/Node";
 import Graph from "./Graph";
 import * as fs from 'fs';
 
