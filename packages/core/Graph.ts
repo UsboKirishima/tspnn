@@ -13,10 +13,10 @@ export default class Graph {
     }
 
     public addEdge(from: Node, to: Node): void {
-        const edge = new Edge(from, to);
+        const edge = new Edge({ from, to, type: 'oriented' });
         this.adjList.get(from)?.push(edge);
 
-        const reverse = new Edge(to, from);
+        const reverse = new Edge({ from: to, to: from, type: 'oriented' });
         this.adjList.get(to)?.push(reverse);
     }
 
@@ -45,10 +45,20 @@ export default class Graph {
                 const a = this.nodes[i];
                 const b = this.nodes[j];
 
-                this.adjList.get(a)!.push(new Edge(a, b));
-                this.adjList.get(b)!.push(new Edge(b, a));
+                this.adjList.get(a)!.push(new Edge({ from: a, to: b, type: 'oriented' }));
+                this.adjList.get(b)!.push(new Edge({ from: b, to: a, type: 'oriented' }));
             }
         }
+    }
+
+    public getEdge(node1: Node, node2: Node): Edge | null {
+        const edgesFromNode1 = this.adjList.get(node1) || [];
+        for (const edge of edgesFromNode1) {
+            if (edge.to === node2) {
+                return edge;
+            }
+        }
+        return null;
     }
 
     public get nodes() {
