@@ -28,6 +28,7 @@ function drawCanvas(): void {
     const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (!ctx) return;
 
+    const algorithm = (document.getElementById('selectAlg') as HTMLSelectElement).value;
     const pointsInput: string = (document.getElementById('coordinates') as HTMLTextAreaElement).value;
 
     const options: CanvasOptions = {
@@ -51,7 +52,12 @@ function drawCanvas(): void {
     drawPointsWithIds(ctx, points, options);
 
     const tsp = new TSPSolver(global.graph);
-    const nodes = tsp.nearestNeighbour(global.graph.nodes[0]);
+
+    const nodes = algorithm === 'nn' ?
+        tsp.nearestNeighbour(global.graph.nodes[0])
+        : algorithm === '2opt' ? tsp.twoOpt(global.graph.nodes[0])
+            : tsp.nearestNeighbour(global.graph.nodes[0]);
+
     document.getElementById('distance').innerText = tsp.distance.toFixed(2);
     drawConnectedShape(ctx, nodes, options);
 }
@@ -170,6 +176,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawButton) {
         drawButton.addEventListener('click', drawCanvas);
     }
+
+    const fileInput = document.getElementById('selectFile') as HTMLInputElement;
+    const customButton = document.getElementById('customFileButton') as HTMLButtonElement;
+
+
+    fileInput.addEventListener('change', (event) => {
+        const file = fileInput.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const textarea = document.getElementById('coordinates') as HTMLTextAreaElement;
+            if (textarea && typeof reader.result === 'string') {
+                textarea.value += '\n' + reader.result;
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    customButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    const saveButton = document.getElementById('saveToFileButton') as HTMLButtonElement;
+    const coordinatesArea = document.getElementById('coordinates') as HTMLTextAreaElement;
+
+    saveButton.addEventListener('click', () => {
+        const content = coordinatesArea.value;
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'coordinates.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+    });
+
 
     drawCanvas();
 });

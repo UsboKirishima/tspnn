@@ -61,8 +61,27 @@ export default class TSPSolver {
     }
 
     /**
-     * Algoritmo 2-opt
-     * Complessità: O(n^2)
+     * 2-opt Algorithm (used for route optimization in TSP)
+     * 
+     * The 2-opt algorithm is a simple local search method to improve a given path 
+     * by iteratively removing two edges and reconnecting the nodes in a different way 
+     * to reduce the total path length.
+     * 
+     * How it works:
+     * 1. Start with an initial route (e.g., from nearest neighbour).
+     * 2. For every pair of non-adjacent edges (i, i+1) and (k, k+1):
+     *    - Reverse the order of the nodes between i+1 and k.
+     *    - This creates a new route with the same nodes but possibly shorter.
+     * 3. If the new route is shorter than the current one, accept it.
+     * 4. Repeat until no further improvement is found (local minimum).
+     * 
+     * Pros:
+     * - Simple to implement.
+     * - Often greatly improves greedy solutions like Nearest Neighbour.
+     * 
+     * Cons:
+     * - Might get stuck in local minima.
+     * - Slower than greedy methods for large inputs.
      */
     public twoOpt(start: Node = this.graph.nodes[0]): Node[] {
         // Inizializzo il tour con il Nearest Neighbour

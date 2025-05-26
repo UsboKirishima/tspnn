@@ -104,3 +104,23 @@ select {
 	transition: 300ms;
 	background: rgba(255, 255, 255, 0.267);;
 }
+
+.hidden-file {
+    display: none;
+}
+
+.custom-button {
+    background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #eee;
+    height: 35px;
+    transition: 300ms;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.file-name {
+    color: #eee;
+    margin-left: 10px;
+    font-size: 14px;
+}
